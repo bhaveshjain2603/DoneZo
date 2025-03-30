@@ -11,7 +11,7 @@ const app = express();
 const PORT = process.env.SERVER_PORT;
 
 app.use(cors());
-app.use(cors({ origin: "http://localhost:5173" }));
+app.use(cors({ origin: "https://sbk-donezo.vercel.app" }));
 app.use(bodyParser.json());
 
 app.use('/api/tasks', taskRoutes)
