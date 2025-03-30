@@ -16,7 +16,7 @@ function ToDo() {
   const [isModalOpen, setModalOpen] = useState(true);
 
   useEffect(() => {
-    if (userName) {
+    if (userName && userEmail && userPassword) {
       fetchTasks();
     }
   }, [userName]);
