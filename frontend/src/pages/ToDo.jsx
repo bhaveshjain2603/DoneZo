@@ -15,8 +15,6 @@ function ToDo() {
   const [userPassword, setUserPassword] = useState("");
   const [isModalOpen, setModalOpen] = useState(true);
 
-  const backendUrl = import.meta.env.VITE_BACKEND_URL;
-
   useEffect(() => {
     if (userName) {
       fetchTasks();
@@ -27,8 +25,8 @@ function ToDo() {
 
     try {
       const url = isLogin
-          ? `${backendUrl}/api/auth/login`
-          : `${backendUrl}/api/auth/signup`;
+          ? `https://donezo-id7j.onrender.com/api/auth/login`
+          : `https://donezo-id7j.onrender.com/api/auth/signup`;
 
       const userData = isLogin
           ? { userEmail, userPassword }  
@@ -106,7 +104,7 @@ function ToDo() {
         });
         return;
       }
-      const response = await axios.get(`${backendUrl}/api/tasks/${userEmail}`);
+      const response = await axios.get(`https://donezo-id7j.onrender.com/api/tasks/${userEmail}`);
       if (response.data) {
         const { userName, tasks } = response.data; 
         setUserName(userName); 
@@ -121,7 +119,7 @@ function ToDo() {
     if (!newTask.trim()) return;
 
     try {
-      const response = await axios.post(`${backendUrl}/api/tasks/`, {
+      const response = await axios.post(`https://donezo-id7j.onrender.com/api/tasks/`, {
         userName,
         userEmail,
         title: newTask,
@@ -146,7 +144,7 @@ function ToDo() {
   const updateTask = async (task) => {
     try {
       const response = await axios.put(
-        `${backendUrl}/api/tasks/${task._id}`,
+        `https://donezo-id7j.onrender.com/api/tasks/${task._id}`,
         {
           title: task.title,
           completed: !task.completed,
@@ -181,7 +179,7 @@ function ToDo() {
 
   const deleteTask = async (taskId) => {
     try {
-      await axios.delete(`${backendUrl}/api/tasks/${taskId}`);
+      await axios.delete(`https://donezo-id7j.onrender.com/api/tasks/${taskId}`);
       fetchTasks();
       toast.success("Task Deleted Successfully!", {
         position: "top-center",
@@ -206,7 +204,7 @@ function ToDo() {
 
     try {
       const response = await axios.put(
-        `${backendUrl}/api/tasks/${editingTask._id}`,
+        `https://donezo-id7j.onrender.com/api/tasks/${editingTask._id}`,
         editingTask
       );
       setTasks(
