@@ -46,10 +46,9 @@ function ToDo() {
           axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
         }
   
-        // If user logs in, fetch tasks
         if (isLogin) {
-          setUserName(userName); // Store username in state for display
-          toast.success(`Welcome, ${userName}!`, {
+          setUserName(userName); 
+          toast.success(`Welcome back, ${userName}!`, {
             position: "top-center",
             autoClose: 3500,
             hideProgressBar: false,
@@ -108,8 +107,8 @@ function ToDo() {
       const response = await axios.get(`http://localhost:8080/api/tasks/${userEmail}`);
       if (response.data) {
         const { userName, tasks } = response.data; 
-        setUserName(userName); // Store username in state
-        setTasks(tasks); // Store tasks in state
+        setUserName(userName); 
+        setTasks(tasks); 
       }
     } catch (error) {
       console.error("Error fetching tasks: ", error);
@@ -239,8 +238,21 @@ function ToDo() {
           progress: undefined,
         });
       } else {
-        const isAuthenticated = await authUser(); // Call authUser() and wait for response
-        if (isAuthenticated) setModalOpen(false);
+        const isAuthenticated = await authUser(); 
+        if (isAuthenticated) {
+          setModalOpen(false);
+        } else {
+          setModalOpen(true);
+          toast.error("User not found, please sign up!", {
+            position: "top-center",
+            autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+          });
+        }
       }
     } else {
       if (!userName || !userEmail || !userPassword) {
