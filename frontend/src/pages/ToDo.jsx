@@ -15,7 +15,7 @@ function ToDo() {
   const [userPassword, setUserPassword] = useState("");
   const [isModalOpen, setModalOpen] = useState(true);
 
-  const backendUrl = process.env.production.REACT_APP_BACKEND_URL;
+  const backendUrl = import.meta.env.VITE_BACKEND_URL;
 
   useEffect(() => {
     if (userName) {
