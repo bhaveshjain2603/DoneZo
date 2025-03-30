@@ -15,7 +15,7 @@ function ToDo() {
   const [userPassword, setUserPassword] = useState("");
   const [isModalOpen, setModalOpen] = useState(true);
 
-  const backendUrl = process.env.REACT_APP_BACKEND_URL
+  const backendUrl = process.env.production.REACT_APP_BACKEND_URL;
 
   useEffect(() => {
     if (userName) {
@@ -136,7 +136,7 @@ function ToDo() {
         draggable: true,
         progress: undefined,
       });
-      setTasks([...tasks, response.data]);
+      fetchTasks();
       setNewTask("");
     } catch (error) {
       console.error("Error adding tasks: ", error);
@@ -182,7 +182,7 @@ function ToDo() {
   const deleteTask = async (taskId) => {
     try {
       await axios.delete(`${backendUrl}/api/tasks/${taskId}`);
-      setTasks(tasks.filter((task) => task._id !== taskId));
+      fetchTasks();
       toast.success("Task Deleted Successfully!", {
         position: "top-center",
         autoClose: 3000, 
