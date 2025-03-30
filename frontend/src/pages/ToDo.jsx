@@ -151,27 +151,18 @@ function ToDo() {
         }
       );
       setTasks(tasks.map((t) => (t._id === task._id ? response.data : t)));
-      if (!task.completed) {
-        toast.success("Task Completed!", {
+      toast.success(
+        `Task ${!task.completed ? "Completed" : "Uncompleted"}!`,
+        {
           position: "top-center",
-          autoClose: 3000, 
+          autoClose: 3000,
           hideProgressBar: false,
           closeOnClick: true,
           pauseOnHover: true,
           draggable: true,
           progress: undefined,
-        });
-      } else {
-        toast.success("Task Uncompleted!", {
-          position: "top-center",
-          autoClose: 3000, 
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-        });
-      }
+        }
+      );
     } catch (error) {
       console.error("Error updating tasks: ", error);
     }
@@ -432,7 +423,7 @@ const modalStyle = {
 const modalContentStyle = {
   backgroundColor: "#fff",
   padding: "20px",
-  borderRadius: "8px",
+  borderRadius: "10px",
   textAlign: "center",
   width: "300px",
 };
@@ -440,7 +431,7 @@ const modalContentStyle = {
 const cardStyle = {
   alignItems: "center",
   justifyContent: "center",
-  margin: "8rem auto",
+  margin: "2rem auto",
   borderRadius: "18px",
   padding: "20px",
   maxWidth: "600px",
