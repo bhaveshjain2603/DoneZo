@@ -15,6 +15,8 @@ function ToDo() {
   const [userPassword, setUserPassword] = useState("");
   const [isModalOpen, setModalOpen] = useState(true);
 
+  const backendUrl = process.env.REACT_APP_BACKEND_URL
+
   useEffect(() => {
     if (userName) {
       fetchTasks();
@@ -25,8 +27,8 @@ function ToDo() {
 
     try {
       const url = isLogin
-          ? 'http://localhost:8080/api/auth/login'
-          : 'http://localhost:8080/api/auth/signup';
+          ? `${backendUrl}/api/auth/login`
+          : `${backendUrl}/api/auth/signup`;
 
       const userData = isLogin
           ? { userEmail, userPassword }  
@@ -104,7 +106,7 @@ function ToDo() {
         });
         return;
       }
-      const response = await axios.get(`http://localhost:8080/api/tasks/${userEmail}`);
+      const response = await axios.get(`${backendUrl}/api/tasks/${userEmail}`);
       if (response.data) {
         const { userName, tasks } = response.data; 
         setUserName(userName); 
@@ -119,7 +121,7 @@ function ToDo() {
     if (!newTask.trim()) return;
 
     try {
-      const response = await axios.post("http://localhost:8080/api/tasks/", {
+      const response = await axios.post(`${backendUrl}/api/tasks/`, {
         userName,
         userEmail,
         title: newTask,
@@ -144,7 +146,7 @@ function ToDo() {
   const updateTask = async (task) => {
     try {
       const response = await axios.put(
-        `http://localhost:8080/api/tasks/${task._id}`,
+        `${backendUrl}/api/tasks/${task._id}`,
         {
           title: task.title,
           completed: !task.completed,
@@ -179,7 +181,7 @@ function ToDo() {
 
   const deleteTask = async (taskId) => {
     try {
-      await axios.delete(`http://localhost:8080/api/tasks/${taskId}`);
+      await axios.delete(`${backendUrl}/api/tasks/${taskId}`);
       setTasks(tasks.filter((task) => task._id !== taskId));
       toast.success("Task Deleted Successfully!", {
         position: "top-center",
@@ -204,7 +206,7 @@ function ToDo() {
 
     try {
       const response = await axios.put(
-        `http://localhost:8080/api/tasks/${editingTask._id}`,
+        `${backendUrl}/api/tasks/${editingTask._id}`,
         editingTask
       );
       setTasks(
